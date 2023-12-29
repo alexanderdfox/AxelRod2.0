@@ -222,80 +222,99 @@ strategies = [cooperate,
 	last_first_random_tit_for_tat
 ]
 
+#default prisoner's dilemma 
 def default_logics(my_move,opponent_move,score):
-	if my_move == C and opponent_move == C:
+	if (my_move == C) and (opponent_move == C):
 		score += 3
-	elif my_move == C and opponent_move == D:
+	elif (my_move == C) and (opponent_move == D):
 		score += 0
-	elif my_move == D and opponent_move == C:
+	elif (my_move == D) and (opponent_move == C):
 		score += 5
-	elif my_move == D and opponent_move == D:
-		score += 1
-	return score
-		
-def and_logics(my_move,opponent_move,score):
-	if and_gate(my_move,opponent_move) == C:
-		score += 3
-	elif my_move == C and opponent_move == D:
-		score += 0
-	elif my_move == D and opponent_move == C:
-		score += 5
-	elif and_gate(my_move,opponent_move) == D:
-		score += 1
-	return score
-		
-def or_logics(my_move,opponent_move,score):
-	if or_gate(my_move,opponent_move) == C:
-		score += 3
-	elif or_gate(my_move, opponent_move) == D:
-		score += 0
-	elif or_gate(my_move, opponent_move) == C:
-		score += 5
-	elif or_gate(my_move,opponent_move) == D:
-		score += 1
-	return score
-
-def nand_logics(my_move,opponent_move,score):
-	if nand_gate(my_move,opponent_move) == C:
-		score += 3
-	elif nand_gate(my_move, opponent_move == D):
-		score += 0
-	elif nand_gate(my_move, opponent_move == C):
-		score += 5
-	elif nand_gate(my_move,opponent_move) == D:
-		score += 1
-	return score
-		
-def nor_logics(my_move,opponent_move,score):
-	if nor_gate(my_move,opponent_move) == C:
-		score += 3
-	elif nor_gate(my_move,opponent_move) == D:
-		score += 0
-	elif nor_gate(my_move,opponent_move) == C:
-		score += 5
-	elif nor_gate(my_move,opponent_move) == D:
+	elif (my_move == D) and (opponent_move == D):
 		score += 1
 	return score
 	
-def xnor_logics(my_move,opponent_move,score):
-	if xnor_gate(my_move,opponent_move) == C:
+#not gate
+def inverse_default_logics(my_move,opponent_move,score):
+	if not(my_move == C) and not(opponent_move == C):
 		score += 3
-	elif xnor_gate(my_move, opponent_move) == D:
+	elif not(my_move == C) and not(opponent_move == D):
 		score += 0
-	elif xnor_gate(my_move, opponent_move) == C:
+	elif not(my_move == D) and not(opponent_move == C):
 		score += 5
-	elif xnor_gate(my_move,opponent_move) == D:
+	elif not(my_move == D) and not(opponent_move == D):
 		score += 1
 	return score
 
-def xor_logics(my_move,opponent_move,score):
-	if xor_gate(my_move,opponent_move) == C:
+#and gate
+def and_logics(my_move,opponent_move,score):
+	if and_gate(my_move,opponent_move) == C and and_gate(opponent_move,my_move) == C:
 		score += 3
-	elif xor_gate(my_move, opponent_move) == D:
+	elif and_gate(my_move, opponent_move) == D and and_gate(opponent_move,my_move) == C:
 		score += 0
-	elif xor_gate(my_move, opponent_move) == C:
+	elif and_gate(my_move, opponent_move) == C and and_gate(opponent_move,my_move) == D:
 		score += 5
-	elif xor_gate(my_move,opponent_move) == D:
+	elif and_gate(my_move,opponent_move) == D and and_gate(opponent_move,my_move) == D:
+		score += 1
+	return score
+
+# or gate		
+def or_logics(my_move,opponent_move,score):
+	if or_gate(my_move,opponent_move) == C and or_gate(opponent_move,my_move) == C:
+		score += 3
+	elif or_gate(my_move, opponent_move) == D and or_gate(opponent_move,my_move) == C:
+		score += 0
+	elif or_gate(my_move, opponent_move) == C and or_gate(opponent_move,my_move) == D:
+		score += 5
+	elif or_gate(my_move,opponent_move) == D and or_gate(opponent_move,my_move) == D:
+		score += 1
+	return score
+
+#nand gate
+def nand_logics(my_move,opponent_move,score):
+	if nand_gate(my_move,opponent_move) == C and nand_gate(opponent_move,my_move) == C:
+		score += 3
+	elif nand_gate(my_move, opponent_move == D) and nand_gate(opponent_move,my_move) == D:
+		score += 0
+	elif nand_gate(my_move, opponent_move == C) and nand_gate(opponent_move,my_move) == C:
+		score += 5
+	elif nand_gate(my_move,opponent_move) == D and nand_gate(opponent_move,my_move) == D:
+		score += 1
+	return score
+
+#nor gate		
+def nor_logics(my_move,opponent_move,score):
+	if nor_gate(my_move,opponent_move) == C and nor_gate(opponent_move,my_move) == C:
+		score += 3
+	elif nor_gate(my_move,opponent_move) == D and nor_gate(opponent_move,my_move) == C:
+		score += 0
+	elif nor_gate(my_move,opponent_move) == C and nor_gate(opponent_move,my_move) == D:
+		score += 5
+	elif nor_gate(my_move,opponent_move) == D  and nor_gate(opponent_move,my_move) == D:
+		score += 1
+	return score
+
+#xnor gate	
+def xnor_logics(my_move,opponent_move,score):
+	if xnor_gate(my_move,opponent_move) == C and xnor_gate(opponent_move,my_move) == C:
+		score += 3
+	elif xnor_gate(my_move, opponent_move) == D and xnor_gate(opponent_move,my_move) == C:
+		score += 0
+	elif xnor_gate(my_move, opponent_move) == C and xnor_gate(opponent_move,my_move) == D:
+		score += 5
+	elif xnor_gate(my_move,opponent_move) == D and xnor_gate(opponent_move,my_move) == D:
+		score += 1
+	return score
+
+#xor gate
+def xor_logics(my_move,opponent_move,score):
+	if xor_gate(my_move,opponent_move) == C and xor_gate(opponent_move,my_move) == C:
+		score += 3
+	elif xor_gate(my_move, opponent_move) == D and xor_gate(opponent_move,my_move) == C:
+		score += 0
+	elif xor_gate(my_move, opponent_move) == C and xor_gate(opponent_move,my_move) == D:
+		score += 5
+	elif xor_gate(my_move,opponent_move) == D and xor_gate(opponent_move,my_move) == D:
 		score += 1
 	return score
 
@@ -314,6 +333,8 @@ def run(logic_type):
 				my_move = strategy(opponent_moves)
 				if logic_type == "default":
 					score = default_logics(my_move, opponent_move, score)
+				if logic_type == "not":
+					score = inverse_default_logics(my_move, opponent_move, score)
 				elif logic_type == "and":
 					score = and_logics(my_move,opponent_move,score)
 				elif logic_type == "nand":
@@ -336,7 +357,7 @@ def run(logic_type):
 	return sorted_strategies
 
 rounds = []
-gates = ["default", "and", "nand", "or", "nor", "xnor", "xor"]
+gates = ["default", "not", "and", "nand", "or", "nor", "xnor", "xor"]
 for g in gates:
 	rs = []
 	ro = f"{g}: Rounds: {num_rounds}:"
